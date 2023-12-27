@@ -1,7 +1,6 @@
 package com.bl;
 
 public class StateCensusAnalyserException extends Exception {
-
     //CONSTANT
     public enum CensusAnalyserCustomExceptionType{
         FILE_NOT_FOUND,

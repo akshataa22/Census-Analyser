@@ -4,7 +4,6 @@ import com.opencsv.bean.CsvBindByName;
 
 public class CSVStateCensus {
 
-
     public String getState() {
         return state;
     }

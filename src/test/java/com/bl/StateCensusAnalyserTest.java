@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class StateCensusAnalyserTest {
+
     private static final String STATE_CENSUS_DATA_PATH = "./src/test/rescue/StateCensusData.csv";
     private static final String WRONG_STATE_CENSUS_DATA_PATH = "./src/test/rescue/StateCensusData.csv";
     private static final String WRONG_TYPE_STATE_CENSUS_DATA_PATH = "./src/test/resources/StateCensusData.cv";

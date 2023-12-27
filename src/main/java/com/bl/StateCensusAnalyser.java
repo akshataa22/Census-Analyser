@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class StateCensusAnalyser {
-
     //METHOD TO LOAD THE CSV FILE AND GET
     public int loadIndiaCensusData(String csvFilePath) throws StateCensusAnalyserException {
         int recordCount = 0;
