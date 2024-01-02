@@ -1,60 +1,56 @@
 package com.bl;
 
-import com.opencsv.bean.CsvBindByName;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
 
-public class CSVStateCensus {
+class CSVStateCensus implements Iterable<String[]> {
+    private String csvFile;
 
-    public String getState() {
-        return state;
+    public CSVStateCensus(String csvFile) {
+        this.csvFile = csvFile;
     }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPopulation() {
-        return population;
-    }
-
-    public void setPopulation(String population) {
-        this.population = population;
-    }
-
-    public String getAreaInSqKm() {
-        return areaInSqKm;
-    }
-
-    public void setAreaInSqKm(String areaInSqKm) {
-        this.areaInSqKm = areaInSqKm;
-    }
-
-    public String getDensityPerSqKm() {
-        return densityPerSqKm;
-    }
-
-    public void setDensityPerSqKm(String densityPerSqKm) {
-        this.densityPerSqKm = densityPerSqKm;
-    }
-
-    @CsvBindByName(column = "State", required = true)
-    public String state;
-
-    @CsvBindByName(column = "Population", required = true)
-    public String population;
-
-    @CsvBindByName(column = "AreaInSqKm", required = true)
-    public String areaInSqKm;
-
-    @CsvBindByName(column = "DensityPerSqKm", required = true)
-    public String densityPerSqKm;
 
     @Override
-    public String toString() {
-        return "CSVStateCensus{" +
-                "state='" + state + '\'' +
-                ", population='" + population + '\'' +
-                ", areaInSqKm='" + areaInSqKm + '\'' +
-                ", densityPerSqKm='" + densityPerSqKm + '\'' +
-                '}';
+    public Iterator<String[]> iterator() {
+        return new CSVIterator();
+    }
+
+    private class CSVIterator implements Iterator<String[]> {
+        private BufferedReader reader;
+
+        private CSVIterator() {
+            try {
+                reader = new BufferedReader(new FileReader(csvFile));
+                // Assuming the first line contains headers, so we skip it
+                reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            try {
+                return reader.ready();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        @Override
+        public String[] next() {
+            try {
+                String line = reader.readLine();
+                if (line != null) {
+                    return line.split(",");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }
